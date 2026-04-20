@@ -1,0 +1,917 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mothuku Koushik – Mechanical Engineer</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=IBM+Plex+Mono:wght@300;400;500&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #0e1623;
+  --paper: #f5f0e8;
+  --amber: #e8a020;
+  --amber2: #f0c060;
+  --steel: #2a3f5a;
+  --rust: #c45a20;
+  --muted: #7a8a9a;
+  --surface: #1a2535;
+  --line: rgba(232,160,32,0.25);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--ink);
+  color: var(--paper);
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* ── BLUEPRINT GRID ── */
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background-image:
+    repeating-linear-gradient(0deg, transparent, transparent 59px, rgba(232,160,32,0.04) 60px),
+    repeating-linear-gradient(90deg, transparent, transparent 59px, rgba(232,160,32,0.04) 60px);
+  pointer-events: none; z-index: 0;
+}
+
+/* ── GLOW ── */
+.glow {
+  position: fixed; border-radius: 50%;
+  filter: blur(140px); pointer-events: none; z-index: 0;
+}
+.glow-1 { width: 700px; height: 700px; background: rgba(232,160,32,0.07); top: -300px; right: -200px; animation: g1 14s ease-in-out infinite; }
+.glow-2 { width: 500px; height: 500px; background: rgba(42,63,90,0.5); bottom: 0; left: -200px; animation: g2 18s ease-in-out infinite; }
+@keyframes g1 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(-50px,80px)} }
+@keyframes g2 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(60px,-50px)} }
+
+/* ── CURSOR ── */
+.cursor-dot { position: fixed; width: 6px; height: 6px; background: var(--amber); border-radius: 50%; pointer-events: none; z-index: 9999; transform: translate(-50%,-50%); }
+.cursor-ring { position: fixed; width: 28px; height: 28px; border: 1px solid rgba(232,160,32,0.5); border-radius: 50%; pointer-events: none; z-index: 9998; transform: translate(-50%,-50%); transition: left .1s ease, top .1s ease, width .3s, height .3s; }
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 18px 64px;
+  border-bottom: 1px solid var(--line);
+  backdrop-filter: blur(24px);
+  background: rgba(14,22,35,0.85);
+}
+.nav-logo {
+  font-family: 'IBM Plex Mono', monospace;
+  font-weight: 500; font-size: 0.85rem;
+  color: var(--amber); letter-spacing: 0.2em; text-transform: uppercase;
+}
+.nav-links { display: flex; gap: 40px; }
+.nav-links a {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.72rem; color: var(--muted);
+  text-decoration: none; letter-spacing: 0.12em; text-transform: uppercase;
+  transition: color .3s; position: relative;
+}
+.nav-links a:hover { color: var(--amber); }
+.nav-links a::after {
+  content: ''; position: absolute; bottom: -3px; left: 0; right: 0;
+  height: 1px; background: var(--amber);
+  transform: scaleX(0); transition: transform .3s; transform-origin: left;
+}
+.nav-links a:hover::after { transform: scaleX(1); }
+
+/* ── MAIN ── */
+main { position: relative; z-index: 1; }
+section { padding: 100px 64px; max-width: 1200px; margin: 0 auto; }
+
+/* ── HERO ── */
+.hero {
+  min-height: 100vh;
+  display: grid; grid-template-columns: 1fr 1fr;
+  align-items: center; gap: 80px;
+  padding: 140px 64px 80px;
+  max-width: 1200px; margin: 0 auto;
+  position: relative; z-index: 1;
+}
+
+.hero-left {}
+.hero-eyebrow {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.72rem; color: var(--amber);
+  letter-spacing: 0.25em; text-transform: uppercase;
+  display: flex; align-items: center; gap: 14px;
+  margin-bottom: 28px;
+  opacity: 0; animation: up .8s .1s forwards;
+}
+.hero-eyebrow::before { content: ''; display: inline-block; width: 36px; height: 1px; background: var(--amber); }
+
+.hero-name {
+  font-family: 'Playfair Display', serif;
+  font-weight: 900;
+  font-size: clamp(3rem, 6vw, 5.5rem);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  margin-bottom: 12px;
+  opacity: 0; animation: up .8s .25s forwards;
+}
+.hero-name .first { color: var(--paper); display: block; }
+.hero-name .last { color: var(--amber); display: block; }
+
+.hero-title {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.88rem; font-weight: 300;
+  color: var(--muted); letter-spacing: 0.15em; text-transform: uppercase;
+  margin-bottom: 32px;
+  opacity: 0; animation: up .8s .4s forwards;
+}
+
+.hero-desc {
+  font-size: 1rem; color: rgba(245,240,232,0.65); line-height: 1.8;
+  max-width: 480px; margin-bottom: 44px;
+  opacity: 0; animation: up .8s .55s forwards;
+}
+.hero-desc strong { color: var(--paper); font-weight: 500; }
+
+.hero-btns {
+  display: flex; gap: 16px; flex-wrap: wrap;
+  opacity: 0; animation: up .8s .7s forwards;
+}
+
+.btn-gold {
+  padding: 13px 30px;
+  background: var(--amber); color: var(--ink);
+  font-family: 'IBM Plex Mono', monospace;
+  font-weight: 500; font-size: 0.78rem;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  text-decoration: none; border: none; cursor: pointer;
+  clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+  transition: opacity .3s, transform .3s;
+}
+.btn-gold:hover { opacity: 0.85; transform: translateY(-2px); }
+
+.btn-wire {
+  padding: 13px 30px;
+  background: transparent; color: var(--paper);
+  font-family: 'IBM Plex Mono', monospace;
+  font-weight: 400; font-size: 0.78rem;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  text-decoration: none; border: 1px solid rgba(245,240,232,0.2);
+  clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+  transition: border-color .3s, color .3s, transform .3s;
+}
+.btn-wire:hover { border-color: var(--amber); color: var(--amber); transform: translateY(-2px); }
+
+/* hero right — blueprint card */
+.hero-right {
+  opacity: 0; animation: fadeIn .9s .5s forwards;
+  position: relative;
+}
+.blueprint-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  padding: 44px;
+  clip-path: polygon(0 0, calc(100% - 24px) 0, 100% 24px, 100% 100%, 24px 100%, 0 calc(100% - 24px));
+  position: relative;
+}
+.blueprint-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0;
+  height: 2px; background: linear-gradient(90deg, var(--amber), transparent);
+}
+.bp-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.62rem; color: var(--amber);
+  letter-spacing: 0.2em; text-transform: uppercase;
+  margin-bottom: 20px; display: flex; align-items: center; gap: 8px;
+}
+.bp-label::before { content: '◆'; font-size: 0.5rem; }
+.bp-row {
+  display: flex; justify-content: space-between; align-items: flex-start;
+  padding: 14px 0; border-bottom: 1px solid rgba(232,160,32,0.1);
+  gap: 20px;
+}
+.bp-row:last-child { border-bottom: none; }
+.bp-key {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.68rem; color: var(--muted);
+  letter-spacing: 0.1em; text-transform: uppercase;
+  min-width: 120px;
+}
+.bp-val {
+  font-size: 0.88rem; color: var(--paper);
+  text-align: right; line-height: 1.5;
+}
+.bp-val a { color: var(--amber); text-decoration: none; }
+.bp-val a:hover { text-decoration: underline; }
+
+.hero-stats {
+  display: flex; gap: 0; margin-top: 64px; padding-top: 48px;
+  border-top: 1px solid var(--line);
+  opacity: 0; animation: up .8s .85s forwards;
+}
+.stat { flex: 1; padding-right: 32px; border-right: 1px solid var(--line); margin-right: 32px; }
+.stat:last-child { border-right: none; padding-right: 0; margin-right: 0; }
+.stat-n {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700; font-size: 2.2rem;
+  color: var(--amber); line-height: 1;
+}
+.stat-l {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.65rem; color: var(--muted);
+  letter-spacing: 0.12em; text-transform: uppercase; margin-top: 4px;
+}
+
+@keyframes up { from{opacity:0;transform:translateY(28px)} to{opacity:1;transform:translateY(0)} }
+@keyframes fadeIn { from{opacity:0} to{opacity:1} }
+
+/* ── SECTION HEADERS ── */
+.sec-tag {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.68rem; color: var(--amber);
+  letter-spacing: 0.22em; text-transform: uppercase;
+  display: flex; align-items: center; gap: 12px;
+  margin-bottom: 14px;
+}
+.sec-tag::before { content: ''; display: inline-block; width: 28px; height: 1px; background: var(--amber); }
+.sec-title {
+  font-family: 'Playfair Display', serif;
+  font-weight: 900; font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+  line-height: 1.1; margin-bottom: 56px;
+  letter-spacing: -0.02em;
+}
+.sec-title em { color: var(--amber); font-style: italic; }
+
+/* ── ABOUT ── */
+#about { border-top: 1px solid var(--line); }
+.about-grid { display: grid; grid-template-columns: 3fr 2fr; gap: 80px; align-items: start; }
+.about-body p {
+  color: rgba(245,240,232,0.7); font-size: 1rem; line-height: 1.85; margin-bottom: 20px;
+}
+.about-body p strong { color: var(--paper); font-weight: 500; }
+.about-highlights { display: flex; flex-direction: column; gap: 2px; margin-top: 8px; }
+.hl-item {
+  background: var(--surface); border: 1px solid var(--line);
+  padding: 20px 24px; display: flex; align-items: flex-start; gap: 16px;
+  transition: border-color .3s;
+}
+.hl-item:hover { border-color: rgba(232,160,32,0.5); }
+.hl-icon { font-size: 1.3rem; flex-shrink: 0; }
+.hl-text {}
+.hl-title {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.72rem; font-weight: 500;
+  color: var(--paper); letter-spacing: 0.05em; margin-bottom: 4px;
+}
+.hl-sub { font-size: 0.8rem; color: var(--muted); line-height: 1.5; }
+
+/* ── SKILLS ── */
+#skills { border-top: 1px solid var(--line); }
+.skills-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
+.skill-card {
+  background: var(--surface); border: 1px solid var(--line);
+  padding: 32px; transition: border-color .3s, background .3s;
+  position: relative; overflow: hidden;
+}
+.skill-card::after {
+  content: ''; position: absolute; bottom: 0; left: 0; right: 0;
+  height: 2px; background: linear-gradient(90deg, var(--amber), var(--rust));
+  transform: scaleX(0); transition: transform .4s; transform-origin: left;
+}
+.skill-card:hover { border-color: rgba(232,160,32,0.35); background: rgba(26,37,53,0.9); }
+.skill-card:hover::after { transform: scaleX(1); }
+.sk-icon { font-size: 1.6rem; margin-bottom: 14px; }
+.sk-name {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700; font-size: 1rem;
+  color: var(--paper); margin-bottom: 14px;
+}
+.sk-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.sk-tag {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.65rem; color: var(--amber);
+  background: rgba(232,160,32,0.08); border: 1px solid rgba(232,160,32,0.2);
+  padding: 3px 9px; letter-spacing: 0.04em;
+}
+
+/* ── EXPERIENCE ── */
+#experience { border-top: 1px solid var(--line); }
+.exp-list { position: relative; }
+.exp-list::before {
+  content: ''; position: absolute; left: 0; top: 0; bottom: 0;
+  width: 1px; background: var(--line);
+}
+.exp-item {
+  padding-left: 40px; padding-bottom: 56px; position: relative;
+}
+.exp-item:last-child { padding-bottom: 0; }
+.exp-item::before {
+  content: '◆'; position: absolute; left: -7px; top: 4px;
+  color: var(--amber); font-size: 0.75rem; background: var(--ink);
+  line-height: 1;
+}
+.exp-head { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 12px; margin-bottom: 6px; }
+.exp-company {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700; font-size: 1.2rem; color: var(--paper);
+}
+.exp-period {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.68rem; color: var(--amber);
+  letter-spacing: 0.08em; background: rgba(232,160,32,0.1);
+  border: 1px solid rgba(232,160,32,0.2); padding: 3px 10px;
+}
+.exp-role {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.75rem; color: var(--muted);
+  letter-spacing: 0.08em; margin-bottom: 16px;
+}
+.exp-bullets { list-style: none; }
+.exp-bullets li {
+  font-size: 0.92rem; color: rgba(245,240,232,0.65);
+  padding: 5px 0 5px 20px; position: relative; line-height: 1.6;
+}
+.exp-bullets li::before {
+  content: '→'; position: absolute; left: 0;
+  color: var(--amber); font-size: 0.78rem;
+}
+.exp-bullets li strong { color: var(--paper); font-weight: 500; }
+
+/* ── PROJECTS ── */
+#projects { border-top: 1px solid var(--line); }
+.proj-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
+.proj-card {
+  background: var(--surface); border: 1px solid var(--line);
+  padding: 36px; position: relative; overflow: hidden;
+  transition: border-color .3s, transform .3s;
+}
+.proj-card:hover { border-color: rgba(232,160,32,0.4); transform: translateY(-4px); }
+.proj-num {
+  font-family: 'Playfair Display', serif; font-weight: 900;
+  font-size: 5rem; color: rgba(232,160,32,0.05);
+  position: absolute; top: 10px; right: 16px; line-height: 1;
+}
+.proj-cat {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.62rem; color: var(--rust);
+  letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 12px;
+}
+.proj-title {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700; font-size: 1.05rem;
+  color: var(--paper); margin-bottom: 12px; line-height: 1.35;
+}
+.proj-desc { font-size: 0.85rem; color: var(--muted); line-height: 1.7; margin-bottom: 20px; }
+.proj-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.proj-chip {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.62rem; color: var(--muted);
+  border: 1px solid var(--line); padding: 3px 8px; letter-spacing: 0.04em;
+}
+
+/* ── EDUCATION ── */
+#education { border-top: 1px solid var(--line); }
+.edu-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
+.edu-card {
+  background: var(--surface); border: 1px solid var(--line);
+  padding: 32px; position: relative; overflow: hidden;
+  transition: border-color .3s;
+}
+.edu-card:hover { border-color: rgba(232,160,32,0.35); }
+.edu-card::after {
+  content: attr(data-y);
+  position: absolute; bottom: 12px; right: 16px;
+  font-family: 'Playfair Display', serif; font-weight: 900;
+  font-size: 3.5rem; color: rgba(232,160,32,0.05); line-height: 1;
+}
+.edu-inst {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700; font-size: 1rem; color: var(--paper); margin-bottom: 8px;
+}
+.edu-deg { font-size: 0.83rem; color: var(--muted); line-height: 1.5; margin-bottom: 16px; }
+.edu-badge {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.65rem; color: var(--amber);
+  background: rgba(232,160,32,0.08); border: 1px solid rgba(232,160,32,0.2);
+  padding: 3px 10px; letter-spacing: 0.08em; display: inline-block;
+}
+
+/* Certs */
+.certs-row { display: flex; gap: 2px; margin-top: 2px; flex-wrap: wrap; }
+.cert-card {
+  flex: 1; min-width: 260px;
+  background: rgba(196,90,32,0.08); border: 1px solid rgba(196,90,32,0.25);
+  padding: 20px 24px;
+}
+.cert-tag {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.6rem; color: var(--rust); letter-spacing: 0.18em;
+  text-transform: uppercase; margin-bottom: 8px;
+}
+.cert-name {
+  font-family: 'IBM Plex Mono', monospace;
+  font-weight: 500; font-size: 0.82rem; color: var(--paper);
+}
+
+/* ── CONTACT ── */
+#contact { border-top: 1px solid var(--line); }
+.contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+.contact-headline {
+  font-family: 'Playfair Display', serif;
+  font-weight: 900; font-size: clamp(2rem, 4vw, 3.2rem);
+  line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 20px;
+}
+.contact-headline em { color: var(--amber); font-style: italic; }
+.contact-sub { font-size: 0.95rem; color: var(--muted); line-height: 1.7; margin-bottom: 36px; }
+.contact-items { display: flex; flex-direction: column; gap: 2px; }
+.contact-item {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 18px 22px; background: var(--surface); border: 1px solid var(--line);
+  text-decoration: none; color: var(--paper); transition: border-color .3s, background .3s;
+}
+.contact-item:hover { border-color: rgba(232,160,32,0.4); background: rgba(26,37,53,0.9); color: var(--amber); }
+.ci-left {}
+.ci-label { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; color: var(--muted); letter-spacing: 0.14em; text-transform: uppercase; display: block; margin-bottom: 3px; }
+.ci-val { font-size: 0.92rem; }
+.ci-arrow { color: var(--amber); font-size: 1rem; }
+
+.form-box {
+  background: var(--surface); border: 1px solid var(--line); padding: 40px;
+  clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 20px 100%, 0 calc(100% - 20px));
+}
+.form-box h3 {
+  font-family: 'Playfair Display', serif; font-weight: 700;
+  font-size: 1rem; color: var(--paper); margin-bottom: 24px;
+}
+.fg { margin-bottom: 18px; }
+.fg label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.62rem; color: var(--muted); letter-spacing: 0.15em;
+  text-transform: uppercase; display: block; margin-bottom: 7px;
+}
+.fg input, .fg textarea {
+  width: 100%; background: var(--ink); border: 1px solid var(--line);
+  color: var(--paper); padding: 11px 14px;
+  font-family: 'IBM Plex Sans', sans-serif; font-size: 0.88rem;
+  outline: none; transition: border-color .3s; resize: vertical;
+}
+.fg input:focus, .fg textarea:focus { border-color: var(--amber); }
+.fg textarea { min-height: 90px; }
+
+/* ── FOOTER ── */
+footer {
+  position: relative; z-index: 1;
+  border-top: 1px solid var(--line);
+  padding: 28px 64px;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.foot-copy {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.68rem; color: var(--muted); letter-spacing: 0.05em;
+}
+.foot-made {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.68rem; color: var(--muted);
+}
+.foot-made span { color: var(--amber); }
+
+/* ── REVEAL ── */
+.reveal { opacity: 0; transform: translateY(36px); transition: opacity .7s ease, transform .7s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 960px) {
+  nav { padding: 14px 24px; }
+  .nav-links { display: none; }
+  .hero { grid-template-columns: 1fr; padding: 120px 24px 60px; gap: 48px; }
+  section { padding: 80px 24px; }
+  .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 40px; }
+  .skills-grid, .proj-grid, .edu-grid { grid-template-columns: 1fr; }
+  .hero-stats { flex-wrap: wrap; gap: 24px; }
+  footer { flex-direction: column; gap: 8px; padding: 24px; text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<div class="cursor-dot" id="cdot"></div>
+<div class="cursor-ring" id="cring"></div>
+<div class="glow glow-1"></div>
+<div class="glow glow-2"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">M. Koushik</div>
+  <div class="nav-links">
+    <a href="#about">About</a>
+    <a href="#skills">Skills</a>
+    <a href="#experience">Experience</a>
+    <a href="#projects">Projects</a>
+    <a href="#education">Education</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<main>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-left">
+    <div class="hero-eyebrow">Open to Opportunities · Warangal, Telangana</div>
+    <div class="hero-name">
+      <span class="first">MOTHUKU</span>
+      <span class="last">KOUSHIK</span>
+    </div>
+    <div class="hero-title">Mechanical Engineer</div>
+    <p class="hero-desc">
+      A <strong>fast-paced learner</strong> with hands-on internship experience in solar cell manufacturing, automotive servicing, and industrial automation. Skilled in <strong>CAD design, precision engineering, and quality systems</strong> — ready to bring technical depth and determination to the right team.
+    </p>
+    <div class="hero-btns">
+      <a href="#contact" class="btn-gold">Hire Me</a>
+      <a href="#projects" class="btn-wire">View Projects</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat">
+        <div class="stat-n">3+</div>
+        <div class="stat-l">Internships</div>
+      </div>
+      <div class="stat">
+        <div class="stat-n">3</div>
+        <div class="stat-l">Design Projects</div>
+      </div>
+      <div class="stat">
+        <div class="stat-n">2</div>
+        <div class="stat-l">Certificates</div>
+      </div>
+      <div class="stat">
+        <div class="stat-n">3</div>
+        <div class="stat-l">CAD Tools</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="blueprint-card">
+      <div class="bp-label">Profile Specifications</div>
+      <div class="bp-row">
+        <div class="bp-key">Degree</div>
+        <div class="bp-val">B.Tech Mechanical Eng.<br>SR University</div>
+      </div>
+      <div class="bp-row">
+        <div class="bp-key">Location</div>
+        <div class="bp-val">Warangal, Telangana</div>
+      </div>
+      <div class="bp-row">
+        <div class="bp-key">Phone</div>
+        <div class="bp-val">+91 9392760103</div>
+      </div>
+      <div class="bp-row">
+        <div class="bp-key">Email</div>
+        <div class="bp-val"><a href="mailto:koushikmothuku@gmail.com">koushikmothuku@gmail.com</a></div>
+      </div>
+      <div class="bp-row">
+        <div class="bp-key">LinkedIn</div>
+        <div class="bp-val"><a href="https://www.linkedin.com/in/koushik-mothuku-0952ab2b8" target="_blank">koushik-mothuku</a></div>
+      </div>
+      <div class="bp-row">
+        <div class="bp-key">Core Skills</div>
+        <div class="bp-val">AutoCAD · PTC Creo<br>MS Office</div>
+      </div>
+      <div class="bp-row">
+        <div class="bp-key">Languages</div>
+        <div class="bp-val">Telugu · Hindi · English</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="sec-tag">Who I Am</div>
+  <h2 class="sec-title">Engineering Precision,<br><em>Human Determination</em></h2>
+  <div class="about-grid reveal">
+    <div class="about-body">
+      <p>I'm a <strong>B.Tech Mechanical Engineering student at SR University, Warangal</strong>, with a proven track record of turning internship opportunities into real technical depth. From operating PECVD machines in high-volume solar cell production to diagnosing automotive systems at a Maruti Suzuki authorized center, I bring genuine shop-floor instinct to every challenge.</p>
+      <p>My projects span mechanical analysis, innovative prototyping, and thermodynamic systems — evidence of curiosity that goes well beyond coursework. I believe that <strong>the best engineers are the ones who get their hands dirty</strong> and learn by doing, not just by reading.</p>
+      <p>I am sincerely motivated to serve an organization with <strong>technical rigor, communicational clarity, and interpersonal commitment</strong> — and to grow alongside a team that values all three.</p>
+    </div>
+    <div class="about-highlights">
+      <div class="hl-item">
+        <div class="hl-icon">⚙️</div>
+        <div class="hl-text">
+          <div class="hl-title">Manufacturing Floor Experience</div>
+          <div class="hl-sub">Operated & maintained PECVD machines in a real solar cell production environment at Premier Energies.</div>
+        </div>
+      </div>
+      <div class="hl-item">
+        <div class="hl-icon">🔬</div>
+        <div class="hl-text">
+          <div class="hl-title">Thermo-Mechanical Analysis</div>
+          <div class="hl-sub">Comparative FEA-level project on disc brake profiles across composite materials — engineering depth beyond the syllabus.</div>
+        </div>
+      </div>
+      <div class="hl-item">
+        <div class="hl-icon">🚗</div>
+        <div class="hl-text">
+          <div class="hl-title">Automotive Diagnostics</div>
+          <div class="hl-sub">Hands-on vehicle servicing and diagnostics at Maruti Suzuki Nexa — customer workflow and real-world problem solving.</div>
+        </div>
+      </div>
+      <div class="hl-item">
+        <div class="hl-icon">🏭</div>
+        <div class="hl-text">
+          <div class="hl-title">Industrial Training</div>
+          <div class="hl-sub">1-month intensive at Signode Pvt. Ltd — industrial packaging systems and hands-on machine exposure.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="sec-tag">Capabilities</div>
+  <h2 class="sec-title">Technical <em>Toolkit</em></h2>
+  <div class="skills-grid reveal">
+    <div class="skill-card">
+      <div class="sk-icon">📐</div>
+      <div class="sk-name">CAD & Design</div>
+      <div class="sk-tags">
+        <span class="sk-tag">AutoCAD</span>
+        <span class="sk-tag">PTC Creo</span>
+        <span class="sk-tag">2D Drafting</span>
+        <span class="sk-tag">3D Modelling</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="sk-icon">🏭</div>
+      <div class="sk-name">Manufacturing</div>
+      <div class="sk-tags">
+        <span class="sk-tag">PECVD Machines</span>
+        <span class="sk-tag">Solar Cell Mfg</span>
+        <span class="sk-tag">Machine Ops</span>
+        <span class="sk-tag">Preventive Checks</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="sk-icon">🔧</div>
+      <div class="sk-name">Mechanical Systems</div>
+      <div class="sk-tags">
+        <span class="sk-tag">Fault Diagnosis</span>
+        <span class="sk-tag">Mechanism Design</span>
+        <span class="sk-tag">Prototyping</span>
+        <span class="sk-tag">Thermo-Mechanical</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="sk-icon">🚗</div>
+      <div class="sk-name">Automotive</div>
+      <div class="sk-tags">
+        <span class="sk-tag">Vehicle Servicing</span>
+        <span class="sk-tag">Diagnostics</span>
+        <span class="sk-tag">Workshop Ops</span>
+        <span class="sk-tag">Customer Workflow</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="sk-icon">💻</div>
+      <div class="sk-name">Software & Tools</div>
+      <div class="sk-tags">
+        <span class="sk-tag">MS Office</span>
+        <span class="sk-tag">CNC Programming</span>
+        <span class="sk-tag">3D Printing</span>
+        <span class="sk-tag">Documentation</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="sk-icon">🤝</div>
+      <div class="sk-name">Professional</div>
+      <div class="sk-tags">
+        <span class="sk-tag">Communication</span>
+        <span class="sk-tag">Team Collaboration</span>
+        <span class="sk-tag">Problem Solving</span>
+        <span class="sk-tag">Fast Learner</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="sec-tag">Work History</div>
+  <h2 class="sec-title">Internship <em>Experience</em></h2>
+  <div class="exp-list reveal">
+
+    <div class="exp-item">
+      <div class="exp-head">
+        <div class="exp-company">Premier Energies, Hyderabad</div>
+        <div class="exp-period">June 2025 – December 2025</div>
+      </div>
+      <div class="exp-role">Technician · Solar Cell Manufacturing</div>
+      <ul class="exp-bullets">
+        <li>Operated and maintained <strong>PECVD machines</strong> in a high-volume solar cell manufacturing environment.</li>
+        <li>Monitored machine performance metrics and executed routine preventive checks to ensure minimal downtime.</li>
+        <li>Developed practical understanding of solar cell production workflows and manufacturing quality standards.</li>
+      </ul>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-head">
+        <div class="exp-company">Maruti Suzuki Authorized Service (Nexa)</div>
+        <div class="exp-period">July 2021 – November 2021</div>
+      </div>
+      <div class="exp-role">Service Intern · Automotive Workshop</div>
+      <ul class="exp-bullets">
+        <li>Assisted with full-cycle <strong>vehicle servicing, diagnostics, and workshop floor operations</strong>.</li>
+        <li>Improved understanding of service procedures, customer handling, and operational workflow management.</li>
+      </ul>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-head">
+        <div class="exp-company">Signode Pvt. Ltd</div>
+        <div class="exp-period">Industrial Training · 1 Month</div>
+      </div>
+      <div class="exp-role">Industrial Trainee · Packaging Systems</div>
+      <ul class="exp-bullets">
+        <li>Completed intensive industrial training, gaining exposure to <strong>automated packaging machine systems</strong> and floor operations.</li>
+        <li>Strengthened understanding of industrial workflows, safety standards, and machine maintenance protocols.</li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="sec-tag">Portfolio Work</div>
+  <h2 class="sec-title">Projects &<br><em>Designs</em></h2>
+  <div class="proj-grid reveal">
+
+    <div class="proj-card">
+      <div class="proj-num">01</div>
+      <div class="proj-cat">Mechanical · Analysis</div>
+      <div class="proj-title">Thermo-Mechanical Analysis of Disc Brake Profiles</div>
+      <p class="proj-desc">Designed and performed a comparative thermo-mechanical analysis of disc brake profiles using various composite materials — exploring stress distribution, heat dissipation, and material performance under real braking loads.</p>
+      <div class="proj-chips">
+        <span class="proj-chip">FEA Analysis</span>
+        <span class="proj-chip">Composite Materials</span>
+        <span class="proj-chip">Thermal Engineering</span>
+      </div>
+    </div>
+
+    <div class="proj-card">
+      <div class="proj-num">02</div>
+      <div class="proj-cat">Thermodynamics · Simulation</div>
+      <div class="proj-title">Multiple Applications VC Cycle Testory</div>
+      <p class="proj-desc">Developed a vapour compression cycle test system exploring multiple application scenarios — analyzing refrigeration efficiency, cycle performance, and thermodynamic properties across varied operating conditions.</p>
+      <div class="proj-chips">
+        <span class="proj-chip">VC Cycle</span>
+        <span class="proj-chip">Thermodynamics</span>
+        <span class="proj-chip">Systems Design</span>
+      </div>
+    </div>
+
+    <div class="proj-card">
+      <div class="proj-num">03</div>
+      <div class="proj-cat">Prototyping · Mechanism</div>
+      <div class="proj-title">DIY 5-Speed Gearbox from Cardboard</div>
+      <p class="proj-desc">Constructed a fully functional 5-speed gearbox prototype using cardboard — a first-principles exercise in gear ratios, transmission design, and mechanical systems intuition using accessible, low-cost materials.</p>
+      <div class="proj-chips">
+        <span class="proj-chip">Rapid Prototyping</span>
+        <span class="proj-chip">Gear Design</span>
+        <span class="proj-chip">Systems Thinking</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="sec-tag">Academic Background</div>
+  <h2 class="sec-title">Education &<br><em>Credentials</em></h2>
+  <div class="edu-grid reveal">
+    <div class="edu-card" data-y="'26">
+      <div class="edu-inst">SR University</div>
+      <div class="edu-deg">B.Tech Mechanical Engineering<br>Expected 2026 · Warangal</div>
+      <div class="edu-badge">Current</div>
+    </div>
+    <div class="edu-card" data-y="'22">
+      <div class="edu-inst">GPT Warangal</div>
+      <div class="edu-deg">Diploma in Mechanical Engineering<br>2022</div>
+      <div class="edu-badge">Completed</div>
+    </div>
+    <div class="edu-card" data-y="'19">
+      <div class="edu-inst">Karunya High School</div>
+      <div class="edu-deg">Class X<br>2019</div>
+      <div class="edu-badge">Completed</div>
+    </div>
+  </div>
+  <div class="certs-row reveal">
+    <div class="cert-card">
+      <div class="cert-tag">Certificate</div>
+      <div class="cert-name">Participation — CNC Workshop</div>
+    </div>
+    <div class="cert-card">
+      <div class="cert-tag">Certificate</div>
+      <div class="cert-name">Participation — 3D Printing Workshop</div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-grid reveal">
+    <div>
+      <div class="sec-tag">Get In Touch</div>
+      <h2 class="contact-headline">Open to<br><em>Opportunities</em></h2>
+      <p class="contact-sub">Looking for roles in mechanical engineering, manufacturing, and industrial automation. Let's talk about how my hands-on internship experience and technical foundation can add value to your team.</p>
+      <div class="contact-items">
+        <a href="mailto:koushikmothuku@gmail.com" class="contact-item">
+          <div class="ci-left">
+            <span class="ci-label">Email</span>
+            <span class="ci-val">koushikmothuku@gmail.com</span>
+          </div>
+          <span class="ci-arrow">↗</span>
+        </a>
+        <a href="tel:9392760103" class="contact-item">
+          <div class="ci-left">
+            <span class="ci-label">Phone</span>
+            <span class="ci-val">+91 9392760103</span>
+          </div>
+          <span class="ci-arrow">↗</span>
+        </a>
+        <a href="https://www.linkedin.com/in/koushik-mothuku-0952ab2b8" target="_blank" class="contact-item">
+          <div class="ci-left">
+            <span class="ci-label">LinkedIn</span>
+            <span class="ci-val">koushik-mothuku-0952ab2b8</span>
+          </div>
+          <span class="ci-arrow">↗</span>
+        </a>
+        <div class="contact-item" style="cursor:default;">
+          <div class="ci-left">
+            <span class="ci-label">Location</span>
+            <span class="ci-val">Warangal, Telangana, India</span>
+          </div>
+          <span class="ci-arrow">📍</span>
+        </div>
+      </div>
+    </div>
+    <div class="form-box">
+      <h3>Send a Message</h3>
+      <div class="fg">
+        <label>Your Name</label>
+        <input type="text" placeholder="Recruiter / Company Name">
+      </div>
+      <div class="fg">
+        <label>Email Address</label>
+        <input type="email" placeholder="hello@company.com">
+      </div>
+      <div class="fg">
+        <label>Message</label>
+        <textarea placeholder="Tell me about the opportunity..."></textarea>
+      </div>
+      <button class="btn-gold" style="width:100%;text-align:center;" onclick="alert('Thank you! Please reach out directly at koushikmothuku@gmail.com')">Send Message</button>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="foot-copy">© 2025 Mothuku Koushik. All rights reserved.</div>
+  <div class="foot-made">Built for the <span>Engineering Industry</span></div>
+</footer>
+
+<script>
+  // Cursor
+  const dot = document.getElementById('cdot');
+  const ring = document.getElementById('cring');
+  let mx=0,my=0,rx=0,ry=0;
+  document.addEventListener('mousemove', e => {
+    mx=e.clientX; my=e.clientY;
+    dot.style.left=mx+'px'; dot.style.top=my+'px';
+  });
+  (function animRing(){
+    rx+=(mx-rx)*0.1; ry+=(my-ry)*0.1;
+    ring.style.left=rx+'px'; ring.style.top=ry+'px';
+    requestAnimationFrame(animRing);
+  })();
+  document.querySelectorAll('a,button,.skill-card,.proj-card').forEach(el=>{
+    el.addEventListener('mouseenter',()=>{ring.style.width='48px';ring.style.height='48px';ring.style.borderColor='rgba(232,160,32,0.7)';});
+    el.addEventListener('mouseleave',()=>{ring.style.width='28px';ring.style.height='28px';ring.style.borderColor='rgba(232,160,32,0.5)';});
+  });
+  // Scroll reveal
+  const obs = new IntersectionObserver(entries=>{
+    entries.forEach((e,i)=>{
+      if(e.isIntersecting) setTimeout(()=>e.target.classList.add('visible'), i*80);
+    });
+  },{threshold:0.1});
+  document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
